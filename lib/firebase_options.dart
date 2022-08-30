@@ -49,7 +49,7 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
+  /* static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDmVIR2bn-MSeJnJ0qylNMsT8y-qeqqa-A',
     appId: '1:110311486730:android:b91e7b61ef5db7fb68f6f3',
     messagingSenderId: '110311486730',
@@ -64,6 +64,25 @@ class DefaultFirebaseOptions {
     projectId: 'note-app1-7a1ed',
     storageBucket: 'note-app1-7a1ed.appspot.com',
     iosClientId: '110311486730-gfan6fpu01alk2amhdlnk4fd2i9c2jfg.apps.googleusercontent.com',
+    iosBundleId: 'com.example.mapExam',
+  );*/
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyDmVIR2bn-MSeJnJ0qylNMsT8y-qeqqa-A',
+    appId: '1:110311486730:android:55ebeeca654409df68f6f3',
+    messagingSenderId: '110311486730',
+    projectId: 'note-app1-7a1ed',
+    storageBucket: 'note-app1-7a1ed.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyBOCztKF94cR6byAfhEIjeBp21ALSUBu5w',
+    appId: '1:110311486730:ios:b53f856bc5e4aa4e68f6f3',
+    messagingSenderId: '110311486730',
+    projectId: 'note-app1-7a1ed',
+    storageBucket: 'note-app1-7a1ed.appspot.com',
+    iosClientId:
+        '110311486730-61qdi9n62resovb9utpfln4t908be853.apps.googleusercontent.com',
     iosBundleId: 'com.example.mapExam',
   );
 }
