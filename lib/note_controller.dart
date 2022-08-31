@@ -49,4 +49,11 @@ class NoteController extends GetxController {
         .doc('Document${notes.value.last.id}')
         .set(notes.value.last.toJson());
   }
+
+  void updateNoteInDB(Note note) async {
+    var collection = _firestore.collection(loggedInUser.email!);
+    collection
+        .doc('Document${note.id}') // <-- Doc ID where data should be updated.
+        .update(note.toJson());
+  }
 }

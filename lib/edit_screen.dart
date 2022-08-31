@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import 'home_screen.dart';
 import 'note.dart';
 import 'note_controller.dart';
 
@@ -53,14 +54,27 @@ class _EditScreenState extends State<EditScreen> {
                   Icons.check_circle,
                   size: 30,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  widget.selectedNote!.title = _titleController.text;
+                  widget.selectedNote!.content = _descriptionController.text;
+                  widget.noteController.updateNoteInDB(widget.selectedNote!);
+                  widget.noteController.notes.refresh();
+                  Navigator.pop(context, HomeScreen.route());
+                }),
           ),
           IconButton(
               icon: const Icon(
                 Icons.cancel_sharp,
                 size: 30,
               ),
-              onPressed: () {}),
+              onPressed: () {
+                if (widget.edit_mode == 2) {
+                  widget.noteController.deleteNoteFromDB(
+                      widget.noteController.notes.value.last.id);
+                  widget.noteController.notes.removeLast();
+                }
+                Navigator.pop(context);
+              }),
         ],
       ),
       body: Container(
