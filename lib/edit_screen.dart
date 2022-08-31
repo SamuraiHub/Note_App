@@ -30,14 +30,21 @@ class _EditScreenState extends State<EditScreen> {
       appBar: AppBar(
         leading: Container(),
         centerTitle: true,
-        title: const Text('App Bar Title'),
+        title: widget.edit_mode == 0
+            ? Text('View Note')
+            : widget.edit_mode == 1
+                ? Text("Edit Note")
+                : Text("Add new Note"),
         actions: [
-          IconButton(
-              icon: const Icon(
-                Icons.check_circle,
-                size: 30,
-              ),
-              onPressed: () {}),
+          Visibility(
+            visible: widget.edit_mode != 0,
+            child: IconButton(
+                icon: const Icon(
+                  Icons.check_circle,
+                  size: 30,
+                ),
+                onPressed: () {}),
+          ),
           IconButton(
               icon: const Icon(
                 Icons.cancel_sharp,
