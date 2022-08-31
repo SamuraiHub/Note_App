@@ -9,6 +9,7 @@ import 'note_controller.dart';
 class HomeScreen extends StatelessWidget {
   static Route route() => MaterialPageRoute(builder: (_) => HomeScreen());
   var noteController = Get.put(NoteController());
+  RxBool unfold = false.obs;
   HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -58,7 +59,12 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             title: Text(noteController.notes.value[index].title!),
-            subtitle: Text(noteController.notes.value[index].content!),
+            subtitle: Obx(
+              () => Visibility(
+                child: Text(noteController.notes.value[index].content!),
+                visible: !unfold.value,
+              ),
+            ),
             onTap: () {},
             onLongPress: () {},
           ),
@@ -67,12 +73,18 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          FloatingActionButton(
-              heroTag: "btn1",
-              child: const Icon(Icons.menu),
-              tooltip: 'Show less. Hide notes content',
-              onPressed: () {}),
-
+          Obx(
+            () => FloatingActionButton(
+                heroTag: "btn1",
+                child:
+                    unfold.value ? Icon(Icons.menu) : Icon(Icons.unfold_less),
+                tooltip: unfold.value
+                    ? 'show more. reveals notes content'
+                    : 'Show less. Hide notes content',
+                onPressed: () {
+                  unfold.value = !unfold.value;
+                }),
+          ),
           /* Notes: for the "Show More" icon use: Icons.menu */
 
           FloatingActionButton(
