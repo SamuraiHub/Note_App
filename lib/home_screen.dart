@@ -59,6 +59,8 @@ class HomeScreen extends StatelessWidget {
                                       MaterialPageRoute(
                                           builder: (_) => EditScreen(
                                                 edit_mode: 1,
+                                                selectedNote: noteController
+                                                    .notes.value[index],
                                               )));
                                 },
                               ),
@@ -93,6 +95,7 @@ class HomeScreen extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (_) => EditScreen(
                                 edit_mode: 0,
+                                selectedNote: noteController.notes.value[index],
                               )));
                 },
                 onLongPress: () {

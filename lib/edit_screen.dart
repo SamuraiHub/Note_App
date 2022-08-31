@@ -8,11 +8,14 @@ import 'note_controller.dart';
 class EditScreen extends StatefulWidget {
   final int edit_mode; // 0 for view 1 for edit and 2 for add
   var noteController = Get.find<NoteController>();
-  EditScreen({required this.edit_mode, Key? key}) : super(key: key) {
+  Note? selectedNote;
+  EditScreen({required this.edit_mode, this.selectedNote, Key? key})
+      : super(key: key) {
     if (edit_mode == 2) {
       noteController.notes.value
           .add(Note(id: noteController.notes.value.last.id + 1));
       noteController.addNoteToDB();
+      selectedNote = noteController.notes.value.last;
     }
   }
 
@@ -23,6 +26,13 @@ class EditScreen extends StatefulWidget {
 class _EditScreenState extends State<EditScreen> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _titleController.text = widget.selectedNote!.title!;
+    _descriptionController.text = widget.selectedNote!.content!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +71,7 @@ class _EditScreenState extends State<EditScreen> {
               controller: _titleController,
               initialValue: null,
               enabled: true,
+              readOnly: widget.edit_mode == 0,
               decoration: const InputDecoration(
                 hintText: 'Type the title here',
               ),
@@ -73,6 +84,7 @@ class _EditScreenState extends State<EditScreen> {
               child: TextFormField(
                   controller: _descriptionController,
                   enabled: true,
+                  readOnly: widget.edit_mode == 0,
                   initialValue: null,
                   maxLines: null,
                   expands: true,
