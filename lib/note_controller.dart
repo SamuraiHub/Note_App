@@ -7,6 +7,7 @@ import 'note.dart';
 
 class NoteController extends GetxController {
   RxList<Note> notes = <Note>[].obs;
+
   final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
   late User loggedInUser;

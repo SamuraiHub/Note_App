@@ -8,8 +8,11 @@ import 'note_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   static Route route() => MaterialPageRoute(builder: (_) => HomeScreen());
+
   var noteController = Get.put(NoteController());
   RxBool unfold = false.obs;
+  RxInt edit_index = 0.obs;
+  RxBool edit_bool = false.obs;
   HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -38,35 +41,47 @@ class HomeScreen extends StatelessWidget {
           separatorBuilder: (context, index) => const Divider(
             color: Colors.blueGrey,
           ),
-          itemBuilder: (context, index) => ListTile(
-            trailing: SizedBox(
-              width: 110.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.edit, color: Colors.blue),
-                    onPressed: () {},
+          itemBuilder: (context, index) => Obx(
+            () => ListTile(
+                trailing: Obx(
+                  () => index == edit_index.value && edit_bool.value
+                      ? SizedBox(
+                          width: 110.0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.edit, color: Colors.blue),
+                                onPressed: () {},
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.blue,
+                                ),
+                                onPressed: () {},
+                              ),
+                            ],
+                          ),
+                        )
+                      : SizedBox(),
+                ),
+                title: Text(noteController.notes.value[index].title!),
+                subtitle: Obx(
+                  () => Visibility(
+                    child: Text(noteController.notes.value[index].content!),
+                    visible: !unfold.value,
                   ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.delete,
-                      color: Colors.blue,
-                    ),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-            title: Text(noteController.notes.value[index].title!),
-            subtitle: Obx(
-              () => Visibility(
-                child: Text(noteController.notes.value[index].content!),
-                visible: !unfold.value,
-              ),
-            ),
-            onTap: () {},
-            onLongPress: () {},
+                ),
+                onTap: () {},
+                onLongPress: () {
+                  if (index == edit_index.value)
+                    edit_bool.value = !edit_bool.value;
+                  else {
+                    edit_index.value = index;
+                    edit_bool.value = true;
+                  }
+                }),
           ),
         ),
       ),
