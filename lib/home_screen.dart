@@ -59,7 +59,13 @@ class HomeScreen extends StatelessWidget {
                                   Icons.delete,
                                   color: Colors.blue,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  noteController.deleteNote(
+                                      noteController.notes.value[index].id);
+                                  noteController.notes.removeAt(index);
+                                  edit_index.value = 0;
+                                  edit_bool.value = false;
+                                },
                               ),
                             ],
                           ),

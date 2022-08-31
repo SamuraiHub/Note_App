@@ -37,4 +37,9 @@ class NoteController extends GetxController {
         .map((m) => Note.fromJson(m.data() as Map<String, dynamic>))
         .toList();
   }
+
+  Future<void> deleteNote(int id) async {
+    var collection = _firestore.collection(loggedInUser.email!);
+    collection.doc('Document$id').delete();
+  }
 }
