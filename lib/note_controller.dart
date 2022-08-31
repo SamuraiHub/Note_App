@@ -38,8 +38,15 @@ class NoteController extends GetxController {
         .toList();
   }
 
-  Future<void> deleteNote(int id) async {
+  void deleteNoteFromDB(int id) async {
     var collection = _firestore.collection(loggedInUser.email!);
     collection.doc('Document$id').delete();
+  }
+
+  void addNoteToDB() async {
+    var collection = _firestore.collection(loggedInUser.email!);
+    collection
+        .doc('Document${notes.value.last.id}')
+        .set(notes.value.last.toJson());
   }
 }

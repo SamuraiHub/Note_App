@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import 'note.dart';
+import 'note_controller.dart';
 
 class EditScreen extends StatefulWidget {
-  static Route route() => MaterialPageRoute(builder: (_) => const EditScreen());
-
-  const EditScreen({Key? key}) : super(key: key);
+  final int edit_mode; // 0 for view 1 for edit and 2 for add
+  var noteController = Get.find<NoteController>();
+  EditScreen({required this.edit_mode, Key? key}) : super(key: key) {
+    if (edit_mode == 2) {
+      noteController.notes.value
+          .add(Note(id: noteController.notes.value.last.id + 1));
+      noteController.addNoteToDB();
+    }
+  }
 
   @override
   State<EditScreen> createState() => _EditScreenState();

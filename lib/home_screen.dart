@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import 'edit_screen.dart';
 import 'note_controller.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -52,7 +53,14 @@ class HomeScreen extends StatelessWidget {
                             children: [
                               IconButton(
                                 icon: Icon(Icons.edit, color: Colors.blue),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => EditScreen(
+                                                edit_mode: 1,
+                                              )));
+                                },
                               ),
                               IconButton(
                                 icon: Icon(
@@ -60,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                                   color: Colors.blue,
                                 ),
                                 onPressed: () {
-                                  noteController.deleteNote(
+                                  noteController.deleteNoteFromDB(
                                       noteController.notes.value[index].id);
                                   noteController.notes.removeAt(index);
                                   edit_index.value = 0;
@@ -79,7 +87,14 @@ class HomeScreen extends StatelessWidget {
                     visible: !unfold.value,
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => EditScreen(
+                                edit_mode: 0,
+                              )));
+                },
                 onLongPress: () {
                   if (index == edit_index.value)
                     edit_bool.value = !edit_bool.value;
@@ -112,7 +127,14 @@ class HomeScreen extends StatelessWidget {
             heroTag: "btn2",
             child: const Icon(Icons.add),
             tooltip: 'Add a new note',
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => EditScreen(
+                            edit_mode: 2,
+                          )));
+            },
           ),
         ],
       ),
